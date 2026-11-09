@@ -1,0 +1,34 @@
+name: Engagement inquiry
+description: Talk to Totative about security work.
+title: "Engagement inquiry: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Issues are public. Describe the work in general terms: no hostnames, credentials, findings or anything under NDA. We reply here and move the details somewhere private.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of work
+      multiple: true
+      options:
+        - Offensive testing
+        - Vulnerability research
+        - Code review
+        - Supply chain
+        - Secure engineering
+        - Not sure yet
+    validations:
+      required: true
+  - type: textarea
+    id: need
+    attributes:
+      label: What you need
+      description: The system in broad strokes, and what a good outcome looks like.
+    validations:
+      required: true
+  - type: input
+    id: timing
+    attributes:
+      label: Timing
+      description: When it needs to start, or finish.

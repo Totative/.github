@@ -2,6 +2,7 @@ name: CodeQL
 on:
   push:
     branches: [main]
+  merge_group:
   pull_request:
   schedule:
     - cron: "17 5 * * 1"

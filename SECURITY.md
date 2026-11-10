@@ -4,7 +4,7 @@ Covers every repository under [github.com/Totative](https://github.com/Totative)
 
 ## Reporting
 
-Use GitHub's private vulnerability reporting: the affected repository's **Security** tab, then **Report a vulnerability**. Don't use an issue, pull request or discussion.
+Use GitHub's [private vulnerability reporting](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability): the affected repository's **Security** tab, then **Report a vulnerability**. Don't use an issue, pull request or discussion.
 
 Include:
 

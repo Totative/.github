@@ -32,6 +32,12 @@
   </tr>
 </table>
 
+## Tools
+
+- [go-avscan](https://github.com/Totative/go-avscan): asks the machine's antivirus about a folder: AMSI, clamd, or a command you name.
+- [go-keyring](https://github.com/Totative/go-keyring): one credential store for a Go desktop app, with a sealed-file fallback inside Flatpak.
+- [go-codepair](https://github.com/Totative/go-codepair): pairs two devices on a LAN with a short typed code.
+
 ## What you can check
 
 - Releases are built in CI and carry signed provenance and an SBOM. Verify any of them with `gh attestation verify <file> --owner Totative`.

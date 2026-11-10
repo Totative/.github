@@ -21,14 +21,14 @@
 
 <table>
   <tr>
-    <td width="33%" valign="top"><b>Offensive testing</b><br>Penetration tests and red-team work against apps, APIs, cloud and infrastructure.</td>
-    <td width="33%" valign="top"><b>Vulnerability research</b><br>Bugs in software people depend on, disclosed with its maintainers.</td>
+    <td width="33%" valign="top"><b>Offensive testing</b><br>Pentests and red-team work.</td>
+    <td width="33%" valign="top"><b>Vulnerability research</b><br>Finding bugs; disclosing them responsibly.</td>
     <td width="33%" valign="top"><b>Code review</b><br>Source and design audits.</td>
   </tr>
   <tr>
-    <td valign="top"><b>Supply chain</b><br>Build provenance, dependency risk, CI hardening, release signing.</td>
-    <td valign="top"><b>Secure engineering</b><br>Threat models, and security built into how a team designs and ships.</td>
-    <td valign="top"><b>Tooling</b><br>What we use on engagements, released here once it's ready.</td>
+    <td valign="top"><b>Supply chain</b><br>Provenance and CI hardening.</td>
+    <td valign="top"><b>Secure engineering</b><br>Threat modelling, built into design.</td>
+    <td valign="top"><b>Tooling</b><br>What we use, released when ready.</td>
   </tr>
 </table>
 

@@ -37,6 +37,7 @@
 - Every commit and tag is signed.
 - Public repositories run CodeQL and publish an [OpenSSF Scorecard](https://scorecard.dev).
 - Vulnerability reports come in privately; advisories and CVEs go out through GitHub, with credit to the reporter.
+- Bugs we find in other people's software are reported privately first, under our [disclosure policy](https://github.com/Totative/.github/blob/main/DISCLOSURE.md).
 
 ## Report a vulnerability
 

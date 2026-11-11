@@ -26,6 +26,29 @@ THEMES = {
     "dark": {"ink": "#F2EEF8", "accent": "#B26BFF", "bg": "#0D0A14"},
 }
 
+REPOS = (
+    (
+        "go-avscan",
+        "Asks the machine's antivirus about a folder of files: Windows AMSI, a clamd daemon, or a command you name.",
+    ),
+    (
+        "go-keyring",
+        "One credential store for a Go desktop app: the OS keyring, with a sealed-file fallback inside a Flatpak.",
+    ),
+    (
+        "go-codepair",
+        "Pair two devices on a LAN with a short human-typed code and an authenticated key exchange.",
+    ),
+    (
+        "repo-template",
+        "Starting point for a Totative repository: secret-scanning hooks, CodeQL, dependency review, Scorecard and attested releases",
+    ),
+    (
+        ".github",
+        "Totative's organisation profile, security policy, disclosure policy and default community files",
+    ),
+)
+
 
 def load_font() -> tuple[TTFont, bytes]:
     """Pin the installed variable font at WEIGHT; returns the static font and its bytes for HarfBuzz."""
@@ -121,6 +144,59 @@ def wordmark(theme: dict[str, str]) -> tuple[str, float, float]:
     return body, width + shift + 2 * pad, base + 2 * pad
 
 
+def wrap(text: str, size: float, max_width: float, max_lines: int = 2) -> list[str]:
+    """Greedy word wrap by shaped advance width; exits if a word or the whole text cannot fit."""
+    words = text.split()
+    if not words:
+        raise SystemExit("empty description")
+    lines: list[str] = []
+    current = words[0]
+    _, width, _ = text_path(current, size, 0, 0, "")
+    if width > max_width:
+        raise SystemExit(f"{current!r} is {width:.0f}px wide, max {max_width:.0f}px")
+    for word in words[1:]:
+        candidate = f"{current} {word}"
+        _, width, _ = text_path(candidate, size, 0, 0, "")
+        if width <= max_width:
+            current = candidate
+            continue
+        lines.append(current)
+        current = word
+        _, width, _ = text_path(current, size, 0, 0, "")
+        if width > max_width:
+            raise SystemExit(
+                f"{current!r} is {width:.0f}px wide, max {max_width:.0f}px"
+            )
+    lines.append(current)
+    if len(lines) > max_lines:
+        raise SystemExit(
+            f"description needs {len(lines)} lines (max {max_lines}): {text}"
+        )
+    return lines
+
+
+def social_card(repo: str, description: str, theme: dict[str, str]) -> str:
+    """1280x640 Open Graph card: wordmark, name, wrapped description, accent bar."""
+    margin, col, title_size, desc_size = 100, 1080, 88, 34
+    wm_body, _, wm_h = wordmark(theme)
+    wm_scale = 56 / wm_h
+    wm = f'<g transform="translate({margin} {margin}) scale({wm_scale:.5f})">{wm_body}</g>'
+    title, title_w, _ = text_path(repo, title_size, margin, 320, theme["ink"])
+    if title_w > col:
+        raise SystemExit(f"{repo}: name is {title_w:.0f}px wide, max {col}px")
+    desc_parts = []
+    for i, line in enumerate(wrap(description, desc_size, col)):
+        g, line_w, _ = text_path(line, desc_size, margin, 376 + i * 46, theme["ink"])
+        if line_w > col:
+            raise SystemExit(
+                f"{repo}: line {i + 1} is {line_w:.0f}px wide, max {col}px"
+            )
+        desc_parts.append(g)
+    desc = f'<g opacity="0.75">{"".join(desc_parts)}</g>'
+    bar = f'<rect x="0" y="634" width="1280" height="6" fill="{theme["accent"]}"/>'
+    return svg((1280, 640), wm + title + desc + bar, (1280, 640), bg=theme["bg"])
+
+
 def svg(
     view: tuple[float, float],
     body: str,
@@ -159,6 +235,14 @@ def build() -> None:
         ],
         check=True,
     )
+    social = OUT / "social"
+    social.mkdir(parents=True, exist_ok=True)
+    for repo, description in REPOS:
+        subprocess.run(
+            ["magick", "-density", "96", "svg:-", social / f"{repo}.png"],
+            input=social_card(repo, description, dark).encode(),
+            check=True,
+        )
 
 
 if __name__ == "__main__":

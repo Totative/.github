@@ -1,0 +1,54 @@
+# Builds, attests and publishes a source release for the calling repository. The build runs here, in a reusable
+# workflow in another repository, so the provenance names this file as the signer and the caller's own steps cannot
+# touch the build: SLSA v1 Build Level 3. Verify with
+#   gh attestation verify ARCHIVE --owner Totative \
+#     --signer-workflow Totative/.github/.github/workflows/release-source.yml
+name: Release source
+on:
+  workflow_call:
+permissions: {}
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build tarball
+        env:
+          REPO: ${{ github.event.repository.name }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          mkdir dist
+          git archive --format=tar.gz --prefix="$REPO-$TAG/" -o "dist/$REPO-$TAG.tar.gz" "$TAG"
+      - uses: anchore/sbom-action@66cbf4bc1f1c0d2edc94016e65bc221b6bb0ad6c # v0.24.3
+        with:
+          path: .
+          format: spdx-json
+          output-file: dist/sbom.spdx.json
+          upload-artifact: false
+          upload-release-assets: false
+      - id: provenance
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: dist/*.tar.gz
+      - uses: actions/attest-sbom@c604332985a26aa8cf1bdc465b92731239ec6b9e # v4.1.0
+        with:
+          subject-path: dist/*.tar.gz
+          sbom-path: dist/sbom.spdx.json
+      - name: Attach the provenance bundle
+        env:
+          BUNDLE: ${{ steps.provenance.outputs.bundle-path }}
+          REPO: ${{ github.event.repository.name }}
+          TAG: ${{ github.ref_name }}
+        run: cp "$BUNDLE" "dist/$REPO-$TAG.tar.gz.intoto.jsonl"
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: gh release create "$TAG" dist/* --verify-tag --generate-notes

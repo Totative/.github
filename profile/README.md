@@ -6,12 +6,10 @@
 </p>
 
 <p align="center">
-  Software security: testing, research, review, and the tools we build for it.
+  Software security research, and the tools we build for it.
 </p>
 
 <p align="center">
-  <a href="https://github.com/Totative/.github/issues/new?template=engagement.yml">Work with us</a>
-  &nbsp;·&nbsp;
   <a href="https://github.com/Totative/.github/blob/main/SECURITY.md">Report a vulnerability</a>
   &nbsp;·&nbsp;
   <a href="https://github.com/orgs/Totative/repositories">Repositories</a>
@@ -21,14 +19,9 @@
 
 <table>
   <tr>
-    <td width="33%" valign="top"><b>Offensive testing</b><br>Pentests and red-team work.</td>
-    <td width="33%" valign="top"><b>Vulnerability research</b><br>Finding bugs; disclosing them responsibly.</td>
-    <td width="33%" valign="top"><b>Code review</b><br>Source and design audits.</td>
-  </tr>
-  <tr>
-    <td valign="top"><b>Supply chain</b><br>Provenance and CI hardening.</td>
-    <td valign="top"><b>Secure engineering</b><br>Threat modelling, built into design.</td>
-    <td valign="top"><b>Tooling</b><br>What we use, released when ready.</td>
+    <td width="33%" valign="top"><b>Vulnerability research</b><br>Finding bugs in software we don't own; disclosing them responsibly.</td>
+    <td width="33%" valign="top"><b>Supply chain</b><br>Provenance and CI hardening, shown on our own releases.</td>
+    <td width="33%" valign="top"><b>Tooling</b><br>Open-source security libraries, released when ready.</td>
   </tr>
 </table>
 
@@ -44,11 +37,6 @@
 - Every commit and tag is signed.
 - Public repositories run CodeQL and publish an [OpenSSF Scorecard](https://scorecard.dev).
 - Vulnerability reports come in privately; advisories and CVEs go out through GitHub, with credit to the reporter.
-- Client data stays in private, per-engagement repositories that only that engagement's team can see.
-
-## Work with us
-
-Open an [engagement inquiry](https://github.com/Totative/.github/issues/new?template=engagement.yml). Issues are public, so keep it general; we reply there and move the details somewhere private.
 
 ## Report a vulnerability
 

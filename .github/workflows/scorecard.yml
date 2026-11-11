@@ -6,6 +6,9 @@ on:
   schedule:
     - cron: "23 6 * * 1"
 permissions: {}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   analysis:
     runs-on: ubuntu-latest

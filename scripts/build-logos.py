@@ -58,6 +58,9 @@ REPOS = (
     (
         ".github",
         "Totative's organisation profile, security policy, disclosure policy and default community files",
+    ),    (
+        "totative.dev",
+        "Software security research, and the tools we build for it.",
     ),
 )
 

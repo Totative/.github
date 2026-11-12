@@ -35,6 +35,7 @@
 
 - Releases are built in CI and carry signed provenance and an SBOM. Verify any of them with `gh attestation verify <file> --owner Totative`.
 - Every commit and tag is signed.
+- [totative.dev](https://totative.dev) scores A+ on [Mozilla's HTTP Observatory](https://developer.mozilla.org/en-US/observatory/analyze?host=totative.dev), with a strict Content-Security-Policy and HSTS preload.
 - Public repositories run CodeQL and publish an [OpenSSF Scorecard](https://scorecard.dev).
 - Vulnerability reports come in privately; advisories and CVEs go out through GitHub, with credit to the reporter.
 - Bugs we find in other people's software are reported privately first, under our [disclosure policy](https://github.com/Totative/.github/blob/main/DISCLOSURE.md).

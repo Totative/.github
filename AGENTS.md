@@ -17,6 +17,5 @@ Org defaults for Totative, a software security research group: the public profil
 
 - Changing `release-source.yml` changes the signer of every release's provenance. Callers pin a SHA, so update `repo-template` and each caller's pin in follow-up commits.
 - Do not edit `lefthook.yml` or `.gitleaks.toml` here without propagating to every Totative repo.
-- The profile tagline and the "What we do" cards are duplicated in `totative.github.io`; `scripts/check-copy.py` there fails CI if they differ. Change both together.
 - Public repo: no unreleased research, no names of targets under embargo.
 - Actions are pinned to a full commit SHA.
